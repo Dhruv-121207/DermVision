@@ -10,12 +10,14 @@ Kaggle: https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000
 
 ## Expected directory structure
 
+```text
 data/
 ├── raw/
 └── processed/
-├── train/
-├── val/
-└── test/
+    ├── train/
+    ├── val/
+    └── test/
+```
 
 Use `src/prepare_dataset.py` to create the processed train/validation/test split from the raw dataset.
 `
