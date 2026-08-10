@@ -113,6 +113,18 @@ The dataset is not included in this repository because of size limitations.
 
 ---
 
+## Dataset Challenges
+
+One of the most significant challenges in this project was **class imbalance**.
+
+The HAM10000 dataset has a highly uneven distribution of images across the seven skin lesion categories. Classes such as **Melanocytic Nevus (NV)** contain a large number of training images, while categories such as **Dermatofibroma (DF)** and **Vascular Lesions (VASC)** have significantly fewer examples.
+
+This imbalance made the classification task more challenging and affected the model’s ability to generalize across the minority classes. The CNN baseline was particularly affected by this imbalance, which motivated the transition to **ResNet18 transfer learning**.
+
+To improve performance, I used **data augmentation in the CNN baseline**, **transfer learning with ResNet18**, and evaluated the models using **confusion matrices, classification reports, and Grad-CAM visualizations**. Despite these improvements, the minority classes remained more challenging, which is reflected in the project’s limitations and prediction performance.
+
+---
+
 ## Technologies Used
 
 - Python
