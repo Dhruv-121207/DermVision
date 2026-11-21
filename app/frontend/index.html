@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4f7f6" />
+  <title>DermVision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css?v=20261121-single-toggle1" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-navigation" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="DermVision home">
+        <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>DermVision</strong><small>DERMOSCOPY ANALYSIS</small></span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <button class="nav-link active" data-view="overview" type="button" title="Overview">
+          <span class="nav-icon">⌂</span><span>Overview</span>
+        </button>
+        <button class="nav-link" data-view="analyze" type="button" title="Image analysis">
+          <span class="nav-icon">⌕</span><span>Image analysis</span><span class="nav-dot"></span>
+        </button>
+        <button class="nav-link" data-view="model" type="button" title="Model information">
+          <span class="nav-icon">◈</span><span>Model information</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+    </aside>
+
+    <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" aria-label="Close sidebar"></button>
+    <main class="main-content">
+      <header class="topbar">
+        <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Toggle sidebar" aria-controls="sidebar-navigation" aria-expanded="true" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+        </button>
+        <div class="breadcrumb"><span>WORKSPACE</span><b>/</b><strong id="breadcrumb-current">Overview</strong></div>
+
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> DERMOSCOPY IMAGE CLASSIFICATION</div>
+            <h1>Explore skin lesion images.<br><em>Understand the model output.</em></h1>
+            <p class="hero-description">DermVision uses a trained ResNet18 model to classify dermoscopy images into seven categories and display a Grad-CAM explanation.</p>
+            <button class="primary-button" id="hero-start" type="button">Start an analysis <span aria-hidden="true">↗</span></button>
+            
+          </div>
+
+        </div>
+
+        <div class="section-heading overview-heading">
+          <div><div class="eyebrow muted-eyebrow">THE WORKSPACE</div><h2>Project overview</h2></div>
+        </div>
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span>MODEL ARCHITECTURE</span><span class="metric-icon violet">◈</span></div><div class="metric-value text-value">ResNet18</div><p>Fine-tuned convolutional neural network</p></article>
+          <article class="metric-card"><div class="metric-top"><span>SUPPORTED CLASSES</span><span class="metric-icon mint">⌗</span></div><div class="metric-value">07</div><p>Skin lesion categories in the model</p></article>
+          <article class="metric-card"><div class="metric-top"><span>MODEL INPUT</span><span class="metric-icon amber">▧</span></div><div class="metric-value model-input-value"><strong>224</strong><span class="dimension-x">×</span><strong>224</strong></div><p>RGB image resized before inference</p></article>
+          <article class="metric-card"><div class="metric-top"><span>EXPLAINABILITY</span><span class="metric-icon blue">✳</span></div><div class="metric-value text-value">Grad-CAM</div><p>Highlights influential image regions</p></article>
+        </div>
+
+        <div class="lower-grid">
+          <section class="content-card class-card">
+            <div class="card-heading"><div><div class="eyebrow muted-eyebrow">CLASSIFICATION SCOPE</div><h3>Seven supported categories</h3></div><span class="count-pill">07 CLASSES</span></div>
+            <div class="class-list" id="class-list-overview"></div>
+          </section>
+          <section class="content-card workflow-card">
+            <div class="eyebrow muted-eyebrow">HOW IT WORKS</div><h3>From image to insight</h3>
+            <div class="workflow-list">
+              <div class="workflow-item"><span class="workflow-number">01</span><div><b>Upload an image</b><p>Choose a JPG, JPEG or PNG dermoscopy image.</p></div></div>
+              <div class="workflow-item"><span class="workflow-number">02</span><div><b>Generate a prediction</b><p>ResNet18 returns probabilities for seven categories.</p></div></div>
+              <div class="workflow-item"><span class="workflow-number">03</span><div><b>Review the explanation</b><p>Grad-CAM provides a visual view of influential regions.</p></div></div>
+            </div>
+            <button class="text-button" id="workflow-start" type="button">Go to image analysis <span>→</span></button>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-analyze">
+        <div class="page-intro">
+          <div><div class="eyebrow muted-eyebrow">IMAGE ANALYSIS</div><h1>Analyze a dermoscopy image</h1><p>Upload an image to see the model's prediction, probability distribution and Grad-CAM visualization.</p></div>
+          
+        </div>
+
+        <div class="analysis-layout" id="upload-layout">
+          <section class="content-card upload-card">
+            <div class="card-heading"><div><h3>Choose your image</h3></div><span class="file-type-pill">JPG · PNG</span></div>
+            <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Choose a dermoscopy image or drag it here">
+              <input id="image-input" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" hidden />
+              <div class="upload-symbol"><span>↑</span></div>
+              <h4>Drop your image here</h4><p>or <button type="button" class="inline-link" id="browse-button">browse files</button> from your device</p>
+              <div class="upload-meta"><span>◉ JPG, JPEG or PNG</span><i></i><span>Maximum 10 MB</span></div>
+            </div>
+            <div class="preview-panel hidden" id="preview-panel">
+              <div class="preview-head"><div><span class="preview-kicker">SELECTED IMAGE</span><strong id="selected-file-name">image.jpg</strong></div><button type="button" class="remove-file" id="remove-file" aria-label="Remove selected image">×</button></div>
+              <div class="preview-image-wrap"><img id="image-preview" alt="Selected dermoscopy image preview" /></div>
+              <div class="preview-foot"><span class="preview-check">✓</span><span>Image ready for analysis</span><span id="image-dimensions"></span></div>
+            </div>
+            <div class="upload-error hidden" id="upload-error" role="alert"></div>
+            <button class="primary-button analyze-button" id="analyze-button" type="button" disabled>Analyze image <span>↗</span></button>
+
+          </section>
+
+          <aside class="content-card info-panel">
+            <div class="eyebrow muted-eyebrow">BEFORE YOU BEGIN</div><h3>Image guidelines</h3>
+            <div class="guideline-list">
+              <div><span class="guideline-icon">◎</span><p><b>Use a dermoscopy image</b><small>For best demonstration results, use an image similar to the HAM10000 dataset.</small></p></div>
+              <div><span class="guideline-icon">⌗</span><p><b>Keep the lesion visible</b><small>Choose a clear image with the region of interest in frame.</small></p></div>
+              <div><span class="guideline-icon">◌</span><p><b>Use supported formats</b><small>JPG, JPEG and PNG image files up to 10 MB.</small></p></div>
+            </div>
+            <div class="info-divider"></div>
+            <div class="model-mini"><div class="mini-icon">◈</div><div><b>ResNet18 model</b><span>224 × 224 RGB input</span></div><span class="mini-status">READY</span></div>
+            <div class="info-disclaimer"><span>!</span><p>Predictions are not a medical diagnosis. Consult a dermatologist for clinical advice.</p></div>
+          </aside>
+        </div>
+
+        <div class="loading-panel hidden" id="loading-panel" aria-live="polite">
+          <div class="loading-orb"><span></span></div><h3>Analyzing your image</h3><p>Running the ResNet18 model and preparing the Grad-CAM explanation.</p><div class="loading-track"><span></span></div><small>THIS MAY TAKE A FEW MOMENTS</small>
+        </div>
+
+        <div class="results-view hidden" id="results-view">
+          <div class="result-banner"><div><div class="eyebrow">ANALYSIS COMPLETE</div><h2>Model output is ready</h2><p>Review the predicted category, class probabilities and visual explanation below.</p></div><button class="secondary-button" id="new-analysis" type="button">＋ New analysis</button></div>
+          <div class="result-top-grid">
+            <section class="prediction-card">
+              <div class="prediction-card-top"><span class="result-label">TOP PREDICTION</span><span class="prediction-symbol">✳</span></div>
+              <div class="prediction-name" id="predicted-class">—</div>
+              <div class="confidence-row"><span>Model confidence</span><strong id="confidence-value">0.00%</strong></div>
+              <div class="confidence-track"><span id="confidence-bar"></span></div>
+              <p class="prediction-footnote">Confidence is the model's estimated probability for this class, not a measure of clinical certainty.</p>
+            </section>
+            <section class="content-card probability-card"><div class="card-heading"><div><div class="eyebrow muted-eyebrow">MODEL OUTPUT</div><h3>Class probabilities</h3></div><span class="sorted-tag">SORTED HIGH → LOW</span></div><div id="probability-list" class="probability-list"></div></section>
+          </div>
+          <section class="content-card explain-card"><div class="card-heading"><div><div class="eyebrow muted-eyebrow">VISUAL EXPLAINABILITY</div><h3>Grad-CAM visualization</h3><p class="card-subtitle">A heatmap overlay showing image regions that influenced the selected class score.</p></div><span class="explain-tag">GRAD-CAM</span></div>
+            <div class="explain-images"><div class="explain-image-box"><div class="image-box-label">ORIGINAL IMAGE</div><img id="result-original" alt="Original uploaded image" /></div><div class="explain-image-box"><div class="image-box-label">GRAD-CAM OVERLAY <span>HEATMAP</span></div><img id="result-gradcam" alt="Grad-CAM heatmap overlay" /></div></div>
+            <div class="explain-caption"><span class="caption-dot"></span>Warmer heatmap regions indicate areas with stronger influence on the model output. This visualization is an explanation aid, not proof of diagnostic reasoning.</div>
+          </section>
+          <div class="result-actions"><button class="secondary-button" id="download-summary" type="button">↓ Download summary</button><button class="text-button" id="result-new-analysis" type="button">Analyze another image <span>→</span></button></div>
+          <div class="medical-warning"><span class="warning-icon">!</span><div><b>Important medical disclaimer</b><p>DermVision is not a medical device and must not be used for diagnosis, treatment or clinical decision-making. A high-confidence prediction can still be incorrect. Always consult a qualified dermatologist for medical concerns.</p></div></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-model">
+        <div class="page-intro"><div><div class="eyebrow muted-eyebrow">MODEL INFORMATION</div><h1>Inside DermVision</h1><p>How DermVision was trained, how ResNet18 processes an image, and what Grad-CAM shows.</p></div></div>
+        <div class="model-hero content-card"><div class="model-hero-copy"><div class="eyebrow muted-eyebrow">FINAL CLASSIFIER</div><h2>ResNet18<br><em>Transfer learning</em></h2><p>DermVision uses an ImageNet-pretrained ResNet18 convolutional network, fine-tuned on HAM10000 dermoscopy images. Its final classification layer was replaced to predict seven skin lesion categories.</p><div class="model-chips"><span>PyTorch</span><span>ResNet18</span><span>224 × 224 RGB</span></div></div><div class="model-graphic" aria-label="Architecture: RGB image, ResNet18 feature extraction, seven softmax classes"><div class="network-node node-input">INPUT IMAGE<small>224 × 224 RGB</small></div><svg class="network-arrow" viewBox="0 0 52 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 8 H47 M41 2 L47 8 L41 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="network-node node-backbone">RESNET18<small>FEATURE EXTRACTION</small></div><svg class="network-arrow" viewBox="0 0 52 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 8 H47 M41 2 L47 8 L41 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="network-node node-output">7 CLASSES<small>SOFTMAX OUTPUT</small></div></div></div>
+        <div class="model-info-grid"><section class="content-card"><div class="eyebrow muted-eyebrow">DATASET</div><h3>HAM10000</h3><p>The model was trained using HAM10000, a collection of dermoscopic skin lesion images labelled across seven categories. The project code uses a stratified image-level split: 70% for training, 15% for validation and 15% for testing.</p><div class="info-stat"><strong>10,015</strong><span>Images in the full HAM10000 dataset</span></div><small class="muted-note">Dataset source: HAM10000. The dataset is not bundled with this application.</small></section><section class="content-card"><div class="eyebrow muted-eyebrow">EXPLAINABILITY</div><h3>Grad-CAM</h3><p>Grad-CAM uses gradients from the model to generate a heatmap of image regions that influenced its prediction. Warm colours indicate stronger activation, not clinical evidence of disease.</p><div class="gradcam-mini"><span class="gradcam-dot dot-cool"></span><span class="gradcam-dot dot-warm"></span><span class="gradcam-dot dot-hot"></span><span class="gradcam-label">LOWER → HIGHER ACTIVATION</span></div></section></div>
+        <section class="content-card training-details">
+          <div class="eyebrow muted-eyebrow">TRAINING AND ARCHITECTURE</div>
+          <h3>How the classifier was built</h3>
+          <div class="training-grid">
+            <div class="training-block"><span class="training-step">01 / PREPARATION</span><h4>Preparing the images</h4><p>Images are resized to <strong>224 × 224 RGB</strong> and normalized using ImageNet channel statistics. During training, random horizontal flips and small rotations provide augmentation.</p></div>
+            <div class="training-block"><span class="training-step">02 / FEATURE EXTRACTION</span><h4>ResNet18 backbone</h4><p>ResNet18 has 18 learned layers and residual connections that pass information across blocks. Its pretrained feature extractor learns image patterns, from edges and textures to more complex structures.</p></div>
+            <div class="training-block"><span class="training-step">03 / CLASSIFICATION</span><h4>Seven output classes</h4><p>The original final layer is replaced with a linear layer producing seven scores. Softmax converts those scores into the class probabilities shown on the analysis page.</p></div>
+            <div class="training-block"><span class="training-step">04 / MODEL TRAINING</span><h4>Fine-tuning</h4><p>The training script uses cross-entropy loss, Adam with a starting learning rate of 0.0001, a step scheduler and up to 20 epochs. It saves the checkpoint with the highest validation accuracy.</p></div>
+          </div>
+          <p class="training-footnote">Evaluation uses an image-level split rather than a lesion-ID-grouped split, which can overestimate performance on unseen lesions.</p>
+        </section>
+        <section class="content-card full-classes"><div class="card-heading"><div><div class="eyebrow muted-eyebrow">OUTPUT LABELS</div><h3>Supported lesion categories</h3></div><span class="count-pill">7 OUTPUT CLASSES</span></div><div id="class-list-model" class="class-list class-list-expanded"></div></section>
+        <section class="method-note" role="note"><span>!</span><p><b>Medical disclaimer</b> — DermVision is not a medical device. Its predictions and heatmaps cannot replace an examination or diagnosis by a qualified dermatologist.</p></section>
+      </section>
+
+      <footer class="app-footer"><strong class="footer-brand">DermVision</strong></footer>
+    </main>
+  </div>
+  <script src="/assets/app.js?v=20261121-single-toggle1" defer></script>
+</body>
+</html>
