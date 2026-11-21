@@ -38,7 +38,7 @@ A pretrained ResNet18 model was fine-tuned on the HAM10000 dataset.
 
 | Model | Validation Accuracy | Test Accuracy |
 |---------|---------:|---------:|
-| ResNet18 | **90.08%** | **88.02%** |
+| ResNet18 | **90.08%** | **87.96%** |
 
 The transition from a custom CNN to transfer learning resulted in a significant improvement in both validation and test performance.
 
