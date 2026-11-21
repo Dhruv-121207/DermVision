@@ -1,26 +1,11 @@
-from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image
 
 import torch
-from torch import nn
-from torchvision.models import resnet18
 
-from utils import preprocess_image, CLASS_NAMES
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-model = resnet18(weights=None)
-model.fc = nn.Linear(model.fc.in_features, len(CLASS_NAMES))
-
-model.load_state_dict(
-    torch.load("models/dermvision_resnet18.pth", map_location=device)
-)
-
-model = model.to(device)
-model.eval()
-
+from utils import preprocess_image
+from predict import model, device
 
 class GradCAM:
     def __init__(self, model, target_layer):

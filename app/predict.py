@@ -5,7 +5,8 @@ from torchvision.models import resnet18
 
 from utils import preprocess_image, format_prediction, CLASS_NAMES
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+torch.set_num_threads(1)
+device = torch.device("cpu")
 
 model = resnet18(weights=None)
 model.fc = nn.Linear(model.fc.in_features, len(CLASS_NAMES))
